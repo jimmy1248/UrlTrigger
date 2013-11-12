@@ -24,7 +24,7 @@ public class EventListener implements Listener{
 		
 		if(event.getEntityType().equals(EntityType.ENDER_DRAGON)){
 			new SendUrlTrigger(dragonurl+"?dragondeath="+event.getEntity().getKiller().getDisplayName());
-			plugin.getLogger().info(event.getEntity().getKiller()+" killed the ender dragon");
+			plugin.getLogger().info(event.getEntity().getKiller().getDisplayName()+" killed the ender dragon");
 		}
 		
 	}
