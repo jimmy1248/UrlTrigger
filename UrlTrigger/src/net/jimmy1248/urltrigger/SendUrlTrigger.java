@@ -10,7 +10,8 @@ public class SendUrlTrigger {
 		try {
 		    URL myURL = new URL(url);
 		    URLConnection myURLConnection = myURL.openConnection();
-		    myURLConnection.connect();
+		    //myURLConnection.connect();
+		    myURLConnection.getDate();
 		} 
 		catch (MalformedURLException e) { 
 		    // new URL() failed

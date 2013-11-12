@@ -4,36 +4,40 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class EventListener implements Listener{
 	UrlTrigger plugin;
-	String url;
+	String joinurl ,quiturl, dragonurl;
 	public EventListener(UrlTrigger plugin) {
 		this.plugin = plugin;
-		url = plugin.getConfig().getString("url");
+		joinurl = plugin.getConfig().getString("joinurl");
+		quiturl = plugin.getConfig().getString("quiturl");
+		dragonurl = plugin.getConfig().getString("dragonurl");
+		plugin.getServer().getPluginManager().registerEvents(this,plugin);
 	}
 	
 
 	@EventHandler
 	public void EnderDragonDeath(EntityDeathEvent event){
-		if(event.getEntity().equals(EntityType.ENDER_DRAGON)){
-			new SendUrlTrigger(url+"?dragondeath="+event.getEntity().getKiller().getDisplayName());
+		
+		if(event.getEntityType().equals(EntityType.ENDER_DRAGON)){
+			new SendUrlTrigger(dragonurl+"?dragondeath="+event.getEntity().getKiller().getDisplayName());
 			plugin.getLogger().info(event.getEntity().getKiller()+" killed the ender dragon");
 		}
 		
 	}
 	
 	@EventHandler
-	public void PlayerJoinEvent(PlayerLoginEvent event){
-		new SendUrlTrigger(url+"?join="+event.getPlayer().getDisplayName());
+	public void PlayerJoinEvent(PlayerJoinEvent event){
+		new SendUrlTrigger(joinurl+"?join="+event.getPlayer().getDisplayName());
 		plugin.getLogger().info(event.getPlayer().getPlayer().getDisplayName()+" joined");
 	}
 	
 	@EventHandler
 	public void PlayerLeaveEvent(PlayerQuitEvent event){
-		new SendUrlTrigger(url+"?quit="+event.getPlayer().getDisplayName());
+		new SendUrlTrigger(quiturl+"?quit="+event.getPlayer().getDisplayName());
 		plugin.getLogger().info(event.getPlayer().getPlayer().getDisplayName()+" quit");
 	}
 }
