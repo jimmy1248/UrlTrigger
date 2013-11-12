@@ -23,7 +23,8 @@ public class EventListener implements Listener{
 	public void EnderDragonDeath(EntityDeathEvent event){
 		
 		if(event.getEntityType().equals(EntityType.ENDER_DRAGON)){
-			new SendUrlTrigger(dragonurl+"?dragondeath="+event.getEntity().getKiller().getDisplayName());
+			plugin.getLogger().info(new SendUrlTrigger(dragonurl+"?dragondeath="+
+					event.getEntity().getKiller().getDisplayName()).getResponse());
 			plugin.getLogger().info(event.getEntity().getKiller().getDisplayName()+" killed the ender dragon");
 		}
 		
@@ -31,13 +32,15 @@ public class EventListener implements Listener{
 	
 	@EventHandler
 	public void PlayerJoinEvent(PlayerJoinEvent event){
-		new SendUrlTrigger(joinurl+"?join="+event.getPlayer().getDisplayName());
+		plugin.getLogger().info(new SendUrlTrigger(joinurl+"?join="+
+				event.getPlayer().getDisplayName()).getResponse());
 		plugin.getLogger().info(event.getPlayer().getPlayer().getDisplayName()+" joined");
 	}
 	
 	@EventHandler
 	public void PlayerLeaveEvent(PlayerQuitEvent event){
-		new SendUrlTrigger(quiturl+"?quit="+event.getPlayer().getDisplayName());
+		plugin.getLogger().info(new SendUrlTrigger(quiturl+"?quit="+
+				event.getPlayer().getDisplayName()).getResponse());
 		plugin.getLogger().info(event.getPlayer().getPlayer().getDisplayName()+" quit");
 	}
 }
